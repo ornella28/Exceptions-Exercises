@@ -20,9 +20,12 @@ public class Main {
             System.out.println("Result: " + result);
         }
         catch (ArithmeticException e){
-            System.out.println("Error: Division by zero is not allowed.");
+            System.err.println("Error: Division by zero is not allowed.");
+        } catch (Exception e){
+            System.err.println("An unexpected error occurred: " + e.getMessage());
         }
         finally {
+            System.out.println("Operation completed.");
             scanner.close();
         }
 
