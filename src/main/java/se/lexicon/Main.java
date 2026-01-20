@@ -31,14 +31,25 @@ public class Main {
         } */
 
         //Exercise 2
-        try {
+        /*try {
             int number = readNumberInRange(1, 100);
             System.out.println("Valid number entered: " + number);
         } catch (InputMismatchException e){
             System.err.println("Error: Invalid input. Please enter an integer.");
         } catch (OutOfRangeException e){
             System.err.println("Error:" + e.getMessage());
+        }*/
+
+        // Exercise 3
+        BankAccount account = new BankAccount(500.0);
+        try {
+            account.deposit(1000);
+            account.withdraw(200);
+            account.withdraw(1500); // This should trigger InsufficientBalanceException
+        } catch (InsufficientBalanceException e){
+            System.err.println("Error: " + e.getMessage());
         }
+        System.out.println("Final Balance: " + account.getBalance());
 
 
 
@@ -48,9 +59,15 @@ public class Main {
     public static int readNumberInRange (int min, int max) throws OutOfRangeException{
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a number between " + min + "and" + max + ":");
-        int number = scanner.nextInt();
-        if (number<min || number>max){
-            throw new OutOfRangeException("Number must be between " + min + " and " + max);
-        }return number;
+        int input;
+        try {
+            input = scanner.nextInt();
+        } catch (InputMismatchException e){
+            throw e;
+        }
+        if (input < min || input > max){
+            throw new OutOfRangeException("Number " + input + " is out of range. It should be between " + min + " and " + max + ".");
+        }
+        return input;
     }
 }
